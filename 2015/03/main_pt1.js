@@ -2,15 +2,12 @@ const fs = require('fs'),
 	input = fs.readFileSync('data.txt').toString(),
 	current = {};
 
-current.input = 0;
-current.x = 0;
-current.y = 0;
+current.input = 0,
+current.x = 0,
+current.y = 0,
 current.houses = ['0,0'];
 
-
-
 while(current.input < input.length){
-	// make the move
 	move(current, input.charAt(current.input));
 	add(current.houses, current.x, current.y);
 	current.input++;
@@ -36,7 +33,3 @@ function add(houses, x, y){
 }
 
 console.log('total houses: ' + current.houses.length);
-
-if(['0,0'].includes('0,1') === false){
-	console.log('yeah');
-}
