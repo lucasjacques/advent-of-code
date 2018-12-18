@@ -1,31 +1,42 @@
 const fs = require('fs'),
-	input = fs.readFileSync('data.txt').toString();
+	input = fs.readFileSync('data.txt').toString(),
+	current = {};
 
-let housesCount = 0,
-	current = [0,0];
-	map = [];
+current.input = 0;
+current.x = 0;
+current.y = 0;
+current.houses = ['0,0'];
 
-while(current < input.length){
+
+
+while(current.input < input.length){
 	// make the move
-	// check if it is duplicate
-	//   if not, add to our map 
+	move(current, input.charAt(current.input));
+	add(current.houses, current.x, current.y);
+	current.input++;
 }
 
-function move(current){
-	let returnable = current;
-	if('^'){
-		returnable[1]++;
-		return returnable;
-	} else if('>'){
-		returnable[0]++;
-		return returnable;
-	} else if('v'){
-		returnable[1]--;
-		return returnable;
-	} else if('<'){
-		returnable[0]--;
-		return returnable;
+function move(current, position){
+	if(position === '^'){
+		current.y++;
+	} else if(position === '>'){
+		current.x++;
+	} else if(position === 'v'){
+		current.y--;
+	} else if(position === '<'){
+		current.x--;
 	}
 }
 
-console.log('total houses: ' + housesCount);
+function add(houses, x, y){
+	value = [x,y].toString();
+	if(houses.includes(value) === false){
+		houses.push(value);
+	}
+}
+
+console.log('total houses: ' + current.houses.length);
+
+if(['0,0'].includes('0,1') === false){
+	console.log('yeah');
+}
