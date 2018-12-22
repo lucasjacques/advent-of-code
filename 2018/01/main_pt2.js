@@ -1,22 +1,34 @@
 const fs = require('fs'),
 	input = fs.readFileSync('data.txt').toString().split('\n'); 
 let frequency = 0,
-	history = [];
+	frequencyTwice = false,
+	history = [0],
+	i = 0;
 
-// input.forEach(function(element, key){
-// 	if(deepSearch(history, element) != true){
-// 		history.push({'value': element,
-// 					  'quantity' : 1})
-// 	}
-// 	frequency+=Number(element);
-// });
 
-// function deepSearch(needle, haystack){
-// 	Object.keys(haystack).forEach(function(element) {
-// 		if(element.value === needle){
-// 			return true;
-// 		}
-// 	});
-// }
+while(frequencyTwice === false){
+	frequency += Number(input[i]);
+	if (deepSearch(frequency,history)){
+		frequencyTwice = true;
+		break;
+	}
+	else{
+		history.push(frequency);
+	}
+	if(i < input.length -1)
+		i++;
+	else
+		i = 0;		
+}
+
+function deepSearch(needle, haystack){
+	let found = false;
+	haystack.forEach(function(element) {
+		if(element === needle){
+			found = true;
+		}
+	});
+	return found;
+}
 
 console.log('frequency: ' + frequency);
