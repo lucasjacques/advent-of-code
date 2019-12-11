@@ -31,4 +31,4 @@ function deepSearch(needle, haystack){
 	return found;
 }
 
-console.log('frequency: ' + frequency);
+console.log('frequencyDuplicated: ' + frequency);
