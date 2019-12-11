@@ -36,7 +36,7 @@ myProgram.tests.run = function() {
 		funcTesting: 'divideAndRoundDown',
 	}
 
-	myProgram.logs.tests += "RUNNING TESTS \n";
+	myProgram.logs.tests += "<< RUNNING TESTS >>\n";
 
 	// tests used on the advent of code
 	myProgram.logs.tests += myProgram.test.toText(myProgram.test.run('divideAndRoundDown', 12, 4), 'divideAndRoundDown', 12, 4) + '\n';
@@ -47,7 +47,7 @@ myProgram.tests.run = function() {
 	// TODO // one more for string data
 	// TODO myProgram.divideAndRoundDown('12'));
 	
-	myProgram.logs.tests += "TESTS ENDED \n";	
+	myProgram.logs.tests += "<< TESTS ENDED >>\n";	
 }
 
 
