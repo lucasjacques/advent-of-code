@@ -3,10 +3,6 @@ const fs = require('fs'),
 const myProgram = {};
 
 myProgram.run = function(data) {
-	let myIndex = 0;
-	for (var i = data.length - 1; i >= 0; i--) {
-		myIndex++;
-	}
 	myProgram.tests.run();
 	console.log(myProgram.tests.logs);
 }
@@ -20,36 +16,36 @@ myProgram.tests.run = function() {
 	this.logs = '';
 	const testInputs = [
 		{
-			funcTesting: 'divideAndRoundDown',
+			fnTesting: 'divideAndRoundDown',
 			input: 12,
-			expectation: 2
+			expectation: 2,
 		},
 		{
-			funcTesting: 'divideAndRoundDown',
+			fnTesting: 'divideAndRoundDown',
 			input: 14,
-			expectation: 2
+			expectation: 2,
 		},
 		{
-			funcTesting: 'divideAndRoundDown',
+			fnTesting: 'divideAndRoundDown',
 			input: 1969,
-			expectation: 654
+			expectation: 654,
 		},
 		{
-			funcTesting: 'divideAndRoundDown',
+			fnTesting: 'divideAndRoundDown',
 			input: 100756,
-			expectation: 33583
+			expectation: 33583,
 		},
-		// one more for string-type data
+		// One more test for string-type data
 		{
-			funcTesting: 'divideAndRoundDown',
+			fnTesting: 'divideAndRoundDown',
 			input: '12',
-			expectation: 2
+			expectation: 2,
 		},
 	]
 
 	this.logs += "<< RUNNING TESTS >>\n";
 
-	// tests used on the advent of code
+	// Most tests used are the ones described in the advent-of-code puzzle
 	for (testInput of testInputs) {
 		this.logs += this.test.toText(
 			this.test.run(
@@ -65,12 +61,12 @@ myProgram.tests.run = function() {
 myProgram.tests.test = {};
 myProgram.tests.test.toText = function(result, testInput) {
 	if (result) {
-		return `The test of ${testInput.funcTesting} function for the ${typeof testInput.input} ${testInput.input} input runned smoothly!`;
+		return `The test of ${testInput.fnTesting} function for the ${typeof testInput.input} ${testInput.input} input runned smoothly!`;
 	}
-	return `Oops! There was a problem during the test of ${testInput.funcTesting} function. We expected ${testInput.expectation}, but it resulted in ${myProgram[testInput.funcTesting](testInput.input)} !`;
+	return `Oops! There was a problem during the test of ${testInput.fnTesting} function for the ${typeof testInput.input} ${testInput.input} input. We expected ${testInput.expectation}, but it resulted in ${myProgram[testInput.fnTesting](testInput.input)} !`;
 };
 myProgram.tests.test.run = function(testInput) {
-	return (myProgram[testInput.funcTesting](testInput.input) === testInput.expectation);
+	return (myProgram[testInput.fnTesting](testInput.input) === testInput.expectation);
 }
 
 myProgram.run(input);
