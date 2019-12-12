@@ -1,13 +1,20 @@
 const fs = require('fs'),
-	input = fs.readFileSync('data.txt').toString().split('\n'); 
+	inputs = fs.readFileSync('data.txt').toString().split('\n'); 
 const myProgram = {};
 
 myProgram.run = function(data) {
-	myProgram.tests.run();
-	console.log(myProgram.tests.logs);
+	this.tests.run();
+	console.log(this.tests.logs);
+
+
+	let fuel = 0;
+	for (input of inputs) {
+		fuel += this.calculateFuelRequired(input);
+	}
+	console.log('Fuel required calculation done!\nFuel Required: ', fuel);
 }
 
-myProgram.divideAndRoundDown = function(num) {
+myProgram.calculateFuelRequired = function(num) {
 	return Math.floor(num / 3) - 2;
 }
 
@@ -16,28 +23,28 @@ myProgram.tests.run = function() {
 	this.logs = '';
 	const testInputs = [
 		{
-			fnTesting: 'divideAndRoundDown',
+			fnTesting: 'calculateFuelRequired',
 			input: 12,
 			expectation: 2,
 		},
 		{
-			fnTesting: 'divideAndRoundDown',
+			fnTesting: 'calculateFuelRequired',
 			input: 14,
 			expectation: 2,
 		},
 		{
-			fnTesting: 'divideAndRoundDown',
+			fnTesting: 'calculateFuelRequired',
 			input: 1969,
 			expectation: 654,
 		},
 		{
-			fnTesting: 'divideAndRoundDown',
+			fnTesting: 'calculateFuelRequired',
 			input: 100756,
 			expectation: 33583,
 		},
 		// One more test for string-type data
 		{
-			fnTesting: 'divideAndRoundDown',
+			fnTesting: 'calculateFuelRequired',
 			input: '12',
 			expectation: 2,
 		},
@@ -55,7 +62,7 @@ myProgram.tests.run = function() {
 		) + '\n';
 	}
 	
-	this.logs += "<< TESTS ENDED >>\n";	
+	this.logs += "<< TESTS ENDED >>\n\n";	
 }
 
 myProgram.tests.test = {};
@@ -69,4 +76,4 @@ myProgram.tests.test.run = function(testInput) {
 	return (myProgram[testInput.fnTesting](testInput.input) === testInput.expectation);
 }
 
-myProgram.run(input);
+myProgram.run(inputs);
