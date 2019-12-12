@@ -58,8 +58,6 @@ myProgram.tests.run = function() {
 	this.testsFailed = 0;
 	// Most tests used are the ones described in the advent-of-code puzzle
 	for (testInput of testInputs) {
-		console.log(this, 'haha');
-		console.log(myProgram.tests, 'hehe');
 		testInput.result = this.test.run(testInput);
 		this.testsFailed += !testInput.result;
 		this.logs += this.test.toText(testInput) + '\n';
