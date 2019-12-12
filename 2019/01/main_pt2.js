@@ -14,15 +14,21 @@ myProgram.run = function(data) {
 	else {
 		let fuel = 0;
 		for (input of inputs) {
-			fuel += this.calculateFuelRequired(input);
+			fuel += this.calculateFuelRequiredRecursive(input);
 		}
-		this.logs += 'Fuel required calculation done!\nFuel Required: ' + fuel;
+		this.logs += 'Fuel required calculation done!\nFuel Required: ' + totalFuel;
 	}
 	console.log(this.logs);
 }
 
-myProgram.calculateFuelRequired = function(num) {
-	return Math.floor(num / 3) - 2;
+myProgram.calculateFuelRequiredRecursive = function(num) {
+	let result = Math.floor(num / 3) - 2;
+	if (result < 9) {
+		return result;
+	}
+	else {
+		return 1337;
+	}
 }
 
 myProgram.tests = {};
@@ -30,28 +36,28 @@ myProgram.tests.run = function() {
 	this.logs = '';
 	const testInputs = [
 		{
-			fnTesting: 'calculateFuelRequired',
+			fnTesting: 'calculateFuelRequiredRecursive',
 			input: 12,
 			expectation: 2,
 		},
 		{
-			fnTesting: 'calculateFuelRequired',
+			fnTesting: 'calculateFuelRequiredRecursive',
 			input: 14,
 			expectation: 2,
 		},
 		{
-			fnTesting: 'calculateFuelRequired',
+			fnTesting: 'calculateFuelRequiredRecursive',
 			input: 1969,
 			expectation: 966,
 		},
 		{
-			fnTesting: 'calculateFuelRequired',
+			fnTesting: 'calculateFuelRequiredRecursive',
 			input: 100756,
 			expectation: 50346,
 		},
 		// One more test for string-type data
 		{
-			fnTesting: 'calculateFuelRequired',
+			fnTesting: 'calculateFuelRequiredRecursive',
 			input: '12',
 			expectation: 2,
 		},
