@@ -4,18 +4,21 @@ const fs = require('fs'),
 const myProgram = {};
 myProgram.run = function(data) {
 	this.tests.run();
-	console.log(this.tests.logs);
-
+	this.logs = this.tests.logs;
 	if (this.tests.testsFailed) {
-		console.log(`Since ${this.tests.testsFailed} tests failed, the program execution has been ended. Please fix them before running the program again.` );
+		if (this.tests.testsFailed === 1)
+			this.logs += `Since ${this.tests.testsFailed} test failed, the program execution has been ended. Please fix them before running the program again.`;
+		else 
+			this.logs += `Since ${this.tests.testsFailed} tests failed, the program execution has been ended. Please fix them before running the program again.`;
 	}
 	else {
 		let fuel = 0;
 		for (input of inputs) {
 			fuel += this.calculateFuelRequired(input);
 		}
-		console.log('Fuel required calculation done!\nFuel Required: ', fuel);
+		this.logs += 'Fuel required calculation done!\nFuel Required: ' + fuel;
 	}
+	console.log(this.logs);
 }
 
 myProgram.calculateFuelRequired = function(num) {
@@ -58,8 +61,6 @@ myProgram.tests.run = function() {
 	this.testsFailed = 0;
 	// Most tests used are the ones described in the advent-of-code puzzle
 	for (testInput of testInputs) {
-		console.log(this, 'haha');
-		console.log(myProgram.tests, 'hehe');
 		testInput.result = this.test.run(testInput);
 		this.testsFailed += !testInput.result;
 		this.logs += this.test.toText(testInput) + '\n';
