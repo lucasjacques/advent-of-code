@@ -16,7 +16,7 @@ myProgram.run = function(data) {
 		for (input of inputs) {
 			fuel += this.calculateFuelRequiredRecursive(input);
 		}
-		this.logs += 'Fuel required calculation done!\nFuel Required: ' + totalFuel;
+		this.logs += 'Fuel required calculation done!\nFuel Required: ' + fuel;
 	}
 	console.log(this.logs);
 }
@@ -27,7 +27,7 @@ myProgram.calculateFuelRequiredRecursive = function(num) {
 		return result;
 	}
 	else {
-		return 1337;
+		return result + this.calculateFuelRequiredRecursive(result);
 	}
 }
 
