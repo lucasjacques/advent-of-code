@@ -28,6 +28,7 @@ myProgram.templateFn = function(num) {
 myProgram.tests = {};
 myProgram.tests.run = function() {
 	this.logs = '';
+	// Most tests used are the ones described in the advent-of-code puzzle
 	const testInputs = [
 		{
 			fnTesting: 'templateFn',
@@ -59,7 +60,6 @@ myProgram.tests.run = function() {
 
 	this.logs += "<< RUNNING TESTS >>\n";
 	this.testsFailed = 0;
-	// Most tests used are the ones described in the advent-of-code puzzle
 	for (testInput of testInputs) {
 		testInput.result = this.test.run(testInput);
 		this.testsFailed += !testInput.result;
