@@ -61,28 +61,30 @@ myProgram.tests.run = function() {
 	this.logs += "<< RUNNING TESTS >>\n";
 	this.testsFailed = 0;
 	for (testInput of testInputs) {
-		testInput.result = this.test.run(testInput);
-		this.testsFailed += !testInput.result;
+		let tmpResults = this.test.run(testInput);
+		testInput.result = tmpResults[0];
+		testInput.passed = tmpResults[1];
+		this.testsFailed += !testInput.passed;
 		this.logs += this.test.toText(testInput) + '\n';
 	}
 	if (this.testsFailed === 1){
-		this.logs += `<< TESTS ENDED WITH ${this.testsFailed} TEST FAILED>>\n\n`;	
+		this.logs += `<< TESTS ENDED WITH ${this.testsFailed} TEST FAILED >>\n\n`;	
 	}
 	else {
-		this.logs += `<< TESTS ENDED WITH ${this.testsFailed} TESTS FAILED>>\n\n`;
+		this.logs += `<< TESTS ENDED WITH ${this.testsFailed} TESTS FAILED >>\n\n`;
 	}
 }
 
 myProgram.tests.test = {};
 myProgram.tests.test.toText = function(testInput) {
-	if (testInput.result) {
+	if (testInput.passed) {
 		return `The test of ${testInput.fnTesting} function for the ${typeof testInput.input} ${testInput.input} input runned smoothly!`;
 	}
-	let result = myProgram.templateFn(testInput.input);
-	return `OOPS! There was a problem during the test of ${testInput.fnTesting} function for the ${typeof testInput.input} ${testInput.input} input. We expected ${typeof testInput.expectation} ${testInput.expectation}, but it resulted in ${typeof result} ${result} !`;
+	return `OOPS! There was a problem during the test of ${testInput.fnTesting} function for the ${typeof testInput.input} ${testInput.input} input. We expected ${typeof testInput.expectation} ${testInput.expectation}, but it resulted in ${typeof testInput.result} ${testInput.result} !`;
 };
 myProgram.tests.test.run = function(testInput) {
-	return (myProgram[testInput.fnTesting](testInput.input) === testInput.expectation);
+	let result = myProgram[testInput.fnTesting](testInput.input);
+	return [result, (myProgram[testInput.fnTesting](testInput.input) === testInput.expectation)];
 }
 
 myProgram.run(inputs);
